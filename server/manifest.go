@@ -12,11 +12,11 @@ var manifest *model.Manifest
 
 const manifestStr = `
 {
-  "id": "com.mattermost.plugin-starter-template",
-  "name": "Plugin Starter Template",
-  "description": "This plugin serves as a starting point for writing a Mattermost plugin.",
+  "id": "com.mattermost.twitter",
+  "name": "Twitter",
+  "description": "A Matermost plugin to connect to Twitter.",
   "version": "0.1.0",
-  "min_server_version": "5.12.0",
+  "min_server_version": "5.27.0",
   "server": {
     "executables": {
       "linux-amd64": "server/dist/plugin-linux-amd64",
@@ -25,13 +25,35 @@ const manifestStr = `
     },
     "executable": ""
   },
-  "webapp": {
-    "bundle_path": "webapp/dist/main.js"
-  },
   "settings_schema": {
     "header": "",
     "footer": "",
-    "settings": []
+    "settings": [
+      {
+        "key": "OAuthClientID",
+        "display_name": "OAuth Client ID:",
+        "type": "text",
+        "help_text": "The client ID for the OAuth app registered with Twitter.",
+        "placeholder": "",
+        "default": "WkEzuWVPGHSmO4vm0yvdF8bq4"
+      },
+      {
+        "key": "OAuthClientSecret",
+        "display_name": "OAuth Client Secret:",
+        "type": "text",
+        "help_text": "The client secret for the OAuth app registered with Twitter.",
+        "placeholder": "",
+        "default": "LwAgBVckO0EQlI2zka55ZFAN16xMRY8T0zvzVI4KbVlCK6tBN1"
+      },
+      {
+        "key": "EncryptionKey",
+        "display_name": "At Rest Encryption Key",
+        "type": "generated",
+        "help_text": "The AES encryption key used to encrypt stored access tokens.",
+        "placeholder": "",
+        "default": null
+      }
+    ]
   }
 }
 `

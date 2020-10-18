@@ -47,9 +47,9 @@ issues:
         - deadcode
         - unused
         - varcheck
-    - path: server/configuration.go
+    - path: server/util/hash.go
       linters:
-        - unused
+        - gosec
     - path: _test\.go
       linters:
         - bodyclose

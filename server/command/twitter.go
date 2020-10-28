@@ -64,19 +64,19 @@ func twitterConnect(ctx *Context, args ...string) (*model.CommandResponse, *mode
 	twitterOAuth1Config := util.GetTwitterOAuth1Config(ctx.api, ctx.manifest)
 	token, secret, err := twitterOAuth1Config.RequestToken()
 	if err != nil {
-		ctx.api.LogError("Failed to connect.", "userID", ctx.UserId, "Error", err.Error())
+		ctx.api.LogError("Failed to connect to twitter. Unable to obtain Request token and secret (temporary credentials).", "userID", ctx.UserId, "Error", err.Error())
 		return util.SendEphemeralCommandResponse("Failed to connect to twitter. If the problem persists, contact your system administrator.")
 	}
 
 	err = ctx.store.StoreOneTimeSecretJSON(ctx.UserId, &serializers.OAuth1aTemporaryCredentials{Token: token, Secret: secret})
 	if err != nil {
-		ctx.api.LogError("Failed to connect.", "userID", ctx.UserId, "Error", err.Error())
+		ctx.api.LogError("Failed to connect to twitter. Unable to store temporary credentials to KVStore.", "userID", ctx.UserId, "Error", err.Error())
 		return util.SendEphemeralCommandResponse("Failed to connect to twitter. If the problem persists, contact your system administrator.")
 	}
 
 	authURL, err := twitterOAuth1Config.AuthorizationURL(token)
 	if err != nil {
-		ctx.api.LogError("Failed to connect.", "userID", ctx.UserId, "Error", err.Error())
+		ctx.api.LogError("Failed to connect to twitter. Unable to obtain authorization URL.", "userID", ctx.UserId, "Error", err.Error())
 		return util.SendEphemeralCommandResponse("Failed to connect to twitter. If the problem persists, contact your system administrator.")
 	}
 

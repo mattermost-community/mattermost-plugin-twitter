@@ -11,50 +11,17 @@
             padding: 50px;
         }
 
-        .btn {
-            -webkit-transition: all 0.15s ease;
-            -webkit-transition-delay: 0s;
-            -moz-transition: all 0.15s ease;
-            -o-transition: all 0.15s ease;
-            transition: all 0.15s ease;
-            padding-right: 1em;
-            padding-left: 1em;
-            font-size: inherit;
-            border: none;
-            height: 2.4em;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            color: rgb(255, 255, 255);
-            background: rgb(0, 82, 204);
-        }
-
-        .btn-primary:hover,
-        .btn-primary:active {
-            background: rgb(0, 101, 255);
-        }
-
-        .btn-link {
-            color: #505f79;
-            background: #f4f5f7;
-        }
-
-        .btn-link:hover,
-        .btn-link:active {
-            background: #ebecf0;
-        }
-
         .accounts-container {
             padding: 1.6em 0 0.8em;
             opacity: .6;
         }
+
         .icon--check {
             margin-right: 4px;
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/@atlaskit/css-reset@2.0.0/dist/bundle.css" media="all">
+    <title>mattermost-plugin-twitter</title>
 </head>
 <body>
 <div class="flex-parent">
@@ -69,7 +36,6 @@
         <div>Twitter account: {{ .TwitterDisplayName }}</div>
     </div>
     You can use `/twitter disconnect` to disconnect your account. It is now safe to close this browser window.
-    {{/*TODO: Remove this option to disconnect <a href="{{ .RevokeURL }}" class="btn btn-link">Disconnect</a>*/}}
 </div>
 </body>
 </html>

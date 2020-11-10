@@ -35,7 +35,6 @@ https://developer.twitter.com/en/portal/projects/<project-id>/apps/<app-id>/auth
 - Set the callbackURL to `<your-mattermost-url>/plugins/com.mattermost.twitter/twitter/callback`.
 - Set the Website URL to `your-mattermost-url`.
 
-
 ## Development
 
 To avoid having to manually install your plugin, build and deploy your plugin using one of the following options.

@@ -17,6 +17,9 @@ func (s Store) GetTwitterUser(mmUserID string) (*serializers.TwitterUser, error)
 	var user serializers.TwitterUser
 	err := s.LoadJSON(util.HashKey(twitterUserPrefix, mmUserID), &user)
 	if err != nil {
+		if err != ErrNotFound {
+			s.api.LogError("Failed to get connected twitter user.", "userID", mmUserID, "error", err.Error())
+		}
 		return nil, err
 	}
 	return &user, nil

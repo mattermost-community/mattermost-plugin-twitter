@@ -29,12 +29,6 @@
                 "display_name": "OAuth Client Secret:",
                 "type": "text",
                 "help_text": "The client secret for the OAuth app registered with Twitter."
-            },
-            {
-                "key": "EncryptionKey",
-                "display_name": "At Rest Encryption Key",
-                "type": "generated",
-                "help_text": "The AES encryption key used to encrypt stored access tokens."
             }
         ]
     }

@@ -20,7 +20,6 @@ const (
 func GetCommand(iconData string) *model.Command {
 	return &model.Command{
 		Trigger:              "twitter",
-		DisplayName:          "Twitter",
 		AutoComplete:         true,
 		AutoCompleteDesc:     "Available commands: connect, disconnect, help.",
 		AutoCompleteHint:     "[command]",
@@ -58,7 +57,7 @@ var TwitterCommandHandler = Handler{
 func twitterConnect(ctx *Context, args ...string) (*model.CommandResponse, *model.AppError) {
 	// If the user is already connected to twitter.
 	if twUser, err := ctx.store.GetTwitterUser(ctx.UserId); err == nil && twUser != nil {
-		return util.SendEphemeralCommandResponse(fmt.Sprintf("You are already connected as twitter user: %s.\nUse `/twitter disconnect` to disconnect your account.", twUser.Name+" (@"+twUser.Username+")"))
+		return util.SendEphemeralCommandResponse(fmt.Sprintf("You are already connected as twitter user: %s.\nUse `/twitter disconnect` to disconnect your account.", twUser.GetDisplayName()))
 	}
 
 	twitterOAuth1Config := util.GetTwitterOAuth1Config(ctx.api, ctx.manifest)

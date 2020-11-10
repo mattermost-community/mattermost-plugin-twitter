@@ -1,4 +1,4 @@
-package controller
+package api
 
 import (
 	"net/http"
@@ -11,6 +11,10 @@ import (
 
 	"github.com/mattermost/mattermost-plugin-twitter/server/constant"
 	"github.com/mattermost/mattermost-plugin-twitter/server/store"
+)
+
+const (
+	HeaderMattermostUserID = "Mattermost-User-Id"
 )
 
 type Controller struct {
@@ -76,7 +80,7 @@ func (c *Controller) handleStaticFiles(r *mux.Router) {
 // handleAuthRequired verifies if provided request is performed by a logged-in Mattermost user.
 func handleAuthRequired(handleFunc func(w http.ResponseWriter, r *http.Request)) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		userID := r.Header.Get(constant.HeaderMattermostUserID)
+		userID := r.Header.Get(HeaderMattermostUserID)
 		if userID == "" {
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return

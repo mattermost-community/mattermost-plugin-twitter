@@ -7,8 +7,6 @@ const (
 	URLPluginBase = "/plugins/" + PluginName
 	URLStaticBase = URLPluginBase + "/static"
 
-	HeaderMattermostUserID = "Mattermost-User-Id"
-
 	BotUsername    = "twitter"
 	BotDisplayName = "Twitter"
 	BotIconURL     = URLStaticBase + "/twitter.png"

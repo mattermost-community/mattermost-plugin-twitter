@@ -12,9 +12,9 @@ import (
 	"github.com/mattermost/mattermost-server/v5/plugin"
 	"github.com/pkg/errors"
 
+	"github.com/mattermost/mattermost-plugin-twitter/server/api"
 	"github.com/mattermost/mattermost-plugin-twitter/server/command"
 	"github.com/mattermost/mattermost-plugin-twitter/server/config"
-	"github.com/mattermost/mattermost-plugin-twitter/server/controller"
 	"github.com/mattermost/mattermost-plugin-twitter/server/store"
 	"github.com/mattermost/mattermost-plugin-twitter/server/util"
 )
@@ -35,7 +35,7 @@ func (p *Plugin) OnActivate() error {
 	}
 
 	p.store = store.NewStore(p.API, p.Helpers)
-	p.router = controller.NewController(p.API, p.Helpers, manifest, p.store).InitAPI()
+	p.router = api.NewController(p.API, p.Helpers, manifest, p.store).InitAPI()
 	return nil
 }
 

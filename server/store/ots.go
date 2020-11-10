@@ -44,9 +44,6 @@ func (s *Store) LoadOneTimeSecretJSON(key string, v interface{}) (returnErr erro
 	// If the key expired, appErr is nil, but the data is also nil
 	if len(data) == 0 {
 		return ErrNotFound
-
-		// TODO: Remove this
-		// nil, errors.Wrapf(kvstore.ErrNotFound, "temporary credentials for %s not found or expired, try to connect again"+mmUserId)
 	}
 
 	_ = s.Delete(util.HashKey(prefixOneTimeSecret, key))

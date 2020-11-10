@@ -1,4 +1,4 @@
-package controller
+package api
 
 import (
 	"fmt"
@@ -63,7 +63,7 @@ func (c *Controller) twitterLoginCallback(w http.ResponseWriter, r *http.Request
 
 	// Twitter client
 	client := util.GetTwitterClient(accessToken, accessSecret)
-	twUser, resp, err := client.Accounts.VerifyCredentials(&twitter.AccountVerifyParams{})
+	twAccount, resp, err := client.Accounts.VerifyCredentials(&twitter.AccountVerifyParams{})
 	if err != nil {
 		c.api.LogError("twitterLoginCallback: Failed to verify twitter credentials for connected user.", "Error", err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -73,19 +73,21 @@ func (c *Controller) twitterLoginCallback(w http.ResponseWriter, r *http.Request
 		defer resp.Body.Close()
 	}
 
-	if err := c.store.SaveTwitterUser(mmUserID, &serializers.TwitterUser{
-		Name:         twUser.Name,
-		Username:     twUser.ScreenName,
+	twUser := &serializers.TwitterUser{
+		Name:         twAccount.Name,
+		Username:     twAccount.ScreenName,
 		AccessToken:  accessToken,
 		AccessSecret: accessSecret,
-	}); err != nil {
+	}
+
+	if err := c.store.SaveTwitterUser(mmUserID, twUser); err != nil {
 		c.api.LogError("twitterLoginCallback: Failed to save twitter client to KVStore.", "Error", err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	c.renderTemplate(w, "oauth1-complete.html", "text/html", map[string]string{
-		"TwitterDisplayName":    twUser.Name + " (@" + twUser.ScreenName + ")",
+		"TwitterDisplayName":    twUser.GetDisplayName(),
 		"MattermostDisplayName": mmUser.GetDisplayName(model.SHOW_NICKNAME_FULLNAME),
 	})
 }

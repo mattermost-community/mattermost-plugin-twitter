@@ -3,7 +3,7 @@
     "name": "Twitter",
     "description": "A Matermost plugin to connect to Twitter.",
     "version": "0.1.0",
-    "min_server_version": "5.27.0",
+    "min_server_version": "5.12.0",
     "server": {
         "executables": {
             "linux-amd64": "server/dist/plugin-linux-amd64",
